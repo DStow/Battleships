@@ -73,6 +73,8 @@ namespace BattleshipsServer
             btnStartServer.Enabled = true;
         }
 
+        private delegate void InvokeDelegate();
+
         private void WriteToLog(string message)
         {
             // Write to textbox and to log file
@@ -80,7 +82,11 @@ namespace BattleshipsServer
             string fullMessage = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + " - " + message;
 
             // Write to GUI
-            txtServerLog.Text = lowKeyMessage + "\r\n" + txtServerLog.Text;
+            this.Invoke(new InvokeDelegate(() =>
+            {
+                txtServerLog.Text = lowKeyMessage + "\r\n" + txtServerLog.Text;
+            }));
+
 
             // Write to text file
             string logFile = _logDirectory + "\\Log " + DateTime.Now.ToString("yyyyMMdd") + ".txt";
@@ -98,7 +104,13 @@ namespace BattleshipsServer
         // Deals with any message that is recieved by the server while it's running
         private string ProcessIncomingMessage(string message)
         {
-            return _game.ProcessServerMessage(message);
+            WriteToLog("Recieved: " + message);
+            string result = _game.ProcessServerMessage(message);
+
+            if (result.Trim() == "")
+                result = "Error";
+
+            return result;
         }
     }
 }

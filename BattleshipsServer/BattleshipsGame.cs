@@ -47,17 +47,20 @@ namespace BattleshipsServer
         {
             string result = "";
 
-            if(_state == ServerStateEnum.Player1Connect)
+            if (messageParts[0] == "Connect")
             {
-                // Signal that they have connected as player 1
-                result = "OK|1";
-                _state = ServerStateEnum.Player2Connect;
-            }
-            else if(_state == ServerStateEnum.Player2Connect)
-            {
-                // Signal that they have connected as player 2
-                result = "OK|2";
-                _state = ServerStateEnum.PlayerPieces;
+                if (_state == ServerStateEnum.Player1Connect)
+                {
+                    // Signal that they have connected as player 1
+                    result = "OK|1";
+                    _state = ServerStateEnum.Player2Connect;
+                }
+                else if (_state == ServerStateEnum.Player2Connect)
+                {
+                    // Signal that they have connected as player 2
+                    result = "OK|2";
+                    _state = ServerStateEnum.PlayerPieces;
+                }
             }
 
             return result;
