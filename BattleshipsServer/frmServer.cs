@@ -15,6 +15,7 @@ namespace BattleshipsServer
     {
         private TCPServerLib.Server _server;
         private string _logDirectory = "";
+        private BattleshipsGame _game;
 
         public frmServer()
         {
@@ -30,6 +31,8 @@ namespace BattleshipsServer
             {
                 Directory.CreateDirectory(_logDirectory);
             }
+
+            _game = new BattleshipsGame();
         }
 
         private void btnStartServer_Click(object sender, EventArgs e)
@@ -95,7 +98,7 @@ namespace BattleshipsServer
         // Deals with any message that is recieved by the server while it's running
         private string ProcessIncomingMessage(string message)
         {
-            return "Recieved";
+            return _game.ProcessServerMessage(message);
         }
     }
 }
