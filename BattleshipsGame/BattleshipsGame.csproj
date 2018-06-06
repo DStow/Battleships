@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BattleshipsGame.cs" />
+    <Compile Include="Classes\FontHandler.cs" />
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\Scenes\ConnectionScene.cs" />
     <Compile Include="Classes\Scenes\GameScene.cs" />

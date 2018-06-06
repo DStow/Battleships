@@ -29,6 +29,9 @@ namespace BattleshipsGame
             _graphics.PreferredBackBufferHeight = 640;
 
             _camera = new Camera(800, 640, 800);
+
+            // Uhhh some stupid singleton thing I picked up from a Unity tutorial... sorry
+            new FontHandler();
         }
 
         protected override void Initialize()
@@ -40,6 +43,8 @@ namespace BattleshipsGame
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            FontHandler.Instance.LoadFonts(Content);
 
             _currentScene.LoadContent(Content);
         }

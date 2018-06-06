@@ -26,6 +26,9 @@ namespace BattleshipsGame.Classes.Scenes
             // Get area of the whole screen
             RectangleF drawArea = camera.ComputeWorldAreaToPixelRectangle(new Vector2(0, 0), new Vector2(camera.VisibleWorldWidth, camera.VisibleWorldHeight));
             spriteBatch.Draw(_backgroundTexture, drawArea, Color.White);
+
+            // Draw test text
+            spriteBatch.DrawString(FontHandler.Instance.LargeFont, "Hello, World!", new Vector2(25, 25), Color.Black);
         }
     }
 }
