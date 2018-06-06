@@ -33,6 +33,17 @@ namespace BattleshipsServer
             }
 
             _game = new BattleshipsGame();
+            _game.GameStateChanged += Server_GameStateChanged;
+            this.Text = _game.GameState.ToString();
+        }
+
+        private void Server_GameStateChanged(object sender, EventArgs e)
+        {
+            this.Invoke(new InvokeDelegate(() =>
+            {
+                this.Text = _game.GameState.ToString();
+            }));
+
         }
 
         private void btnStartServer_Click(object sender, EventArgs e)
