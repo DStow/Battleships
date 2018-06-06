@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -16,11 +11,11 @@ namespace BattleshipsGame.Classes
         public Vector2 Position { get; set; }
         public Vector2 Size { get; set; }
 
-        public MonoGameUtilityLib.RectangleF AreaF
+        public RectangleF AreaF
         {
             get
             {
-                return new MonoGameUtilityLib.RectangleF(Position.X, Position.Y, Size.X, Size.Y);
+                return new RectangleF(Position.X, Position.Y, Size.X, Size.Y);
             }
         }
 

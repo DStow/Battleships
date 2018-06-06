@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Input;
 
 using MonoGameUtilityLib;
 
+using BattleshipsGame.Classes;
+using BattleshipsGame.Classes.Scenes;
+
 namespace BattleshipsGame
 {
     /// <summary>
@@ -14,6 +17,8 @@ namespace BattleshipsGame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Camera _camera;
+
+        private Scene _currentScene;
 
         public BattleshipsGame()
         {
@@ -28,14 +33,15 @@ namespace BattleshipsGame
 
         protected override void Initialize()
         {
-
+            _currentScene = new ConnectionScene();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-     
+
+            _currentScene.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -53,6 +59,8 @@ namespace BattleshipsGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+
+            _currentScene.Draw(_spriteBatch, _camera);
 
             _spriteBatch.End();
 

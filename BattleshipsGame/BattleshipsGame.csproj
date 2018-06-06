@@ -43,6 +43,10 @@
   <ItemGroup>
     <Compile Include="BattleshipsGame.cs" />
     <Compile Include="Classes\GameObject.cs" />
+    <Compile Include="Classes\Scenes\ConnectionScene.cs" />
+    <Compile Include="Classes\Scenes\GameScene.cs" />
+    <Compile Include="Classes\Scenes\PlacementScene.cs" />
+    <Compile Include="Classes\Scenes\Scene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,9 +67,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\Scenes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
