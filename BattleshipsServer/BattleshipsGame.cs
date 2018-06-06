@@ -5,21 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BattleshipsServer.Extensions;
+using BattleshipsServer.Enumeration;
 
 namespace BattleshipsServer
 {
     public class BattleshipsGame
     {
-        public enum ServerStateEnum
-        {
-            Player1Connect,
-            Player2Connect,
-            PlayerPieces,
-            Player1Turn,
-            Player2Turn,
-            GameOver,
-            Unknown
-        }
 
         private ServerStateEnum _state = ServerStateEnum.Unknown;
         public ServerStateEnum GameState
@@ -39,6 +30,8 @@ namespace BattleshipsServer
         }
 
         public event EventHandler GameStateChanged;
+
+        private PlayerBoard _player1Board, _player2Board;
 
 
         public BattleshipsGame()
@@ -122,18 +115,18 @@ namespace BattleshipsServer
 
                     // ToDo: Validate player has sent the correct amount of pieces
 
-                    if (player1Pieces == null && playerNum == "1")
+                    if (_player1Board == null && playerNum == "1")
                     {
-                        player1Pieces = pieces;
+                        _player1Board = new PlayerBoard(pieces);
                         result = "OK";
                     }
                     else if (player1Pieces != null && playerNum == "1")
                     {
                         result = "Pieces already recieved";
                     }
-                    else if (player2Pieces == null && playerNum == "2")
+                    else if (_player2Board == null && playerNum == "2")
                     {
-                        player2Pieces = pieces;
+                        _player2Board = new PlayerBoard(pieces);
                         result = "OK";
 
                         // Go to the first players turn

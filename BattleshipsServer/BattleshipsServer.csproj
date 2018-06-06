@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleshipsGame.cs" />
+    <Compile Include="Enumeration.cs" />
+    <Compile Include="Exceptions.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="frmServer.cs">
       <SubType>Form</SubType>
@@ -56,6 +58,7 @@
     <Compile Include="frmServer.Designer.cs">
       <DependentUpon>frmServer.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlayerBoard.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmServer.resx">
