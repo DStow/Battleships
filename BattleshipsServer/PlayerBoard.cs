@@ -43,6 +43,24 @@ namespace BattleshipsServer
             _pieces = finalPieces.ToArray();
         }
 
+        public bool ApplyHit(string targetPos)
+        {
+            string[] parts = targetPos.Split(',');
+            int x = Convert.ToInt32(parts[0]);
+            int y = Convert.ToInt32(parts[1]);
+
+            for(int i = 0; i < _pieces.Length; i++)
+            {
+                if(_pieces[i].X == x && _pieces[i].Y == y)
+                {
+                    _pieces[i].State = BoardPieceStateEnum.Hit;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private struct BoardPiece
         {
             public int X { get; set; }
