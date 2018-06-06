@@ -81,8 +81,6 @@ namespace BattleshipsServer
             return result;
         }
 
-        private string player1Pieces = null, player2Pieces = null;
-
         private string HandlePlayerPieces(string[] messageParts)
         {
             string result = "";
@@ -120,7 +118,7 @@ namespace BattleshipsServer
                         _player1Board = new PlayerBoard(pieces);
                         result = "OK";
                     }
-                    else if (player1Pieces != null && playerNum == "1")
+                    else if (_player1Board != null && playerNum == "1")
                     {
                         result = "Pieces already recieved";
                     }
@@ -132,11 +130,68 @@ namespace BattleshipsServer
                         // Go to the first players turn
                         GameState = ServerStateEnum.Player1Turn;
                     }
-                    else if (player2Pieces != null && playerNum == "2")
+                    else if (_player2Board != null && playerNum == "2")
                     {
                         result = "Pieces already recieved";
                     }
                 }
+            }
+
+            return result;
+        }
+
+        private string _lastPlay;
+        private string HandlePlayerTurn(string[] messageParts)
+        {
+            string result = "";
+
+            // Two commands - Recieve and Turn
+            if(messageParts[0] == "Turn" && _lastPlay == null)
+            {
+                if(_state == ServerStateEnum.Player1Turn && messageParts[1] == "1")
+                {
+                    // Apply hit to board
+                    _lastPlay = messageParts[2];
+                    bool hit = _player2Board.ApplyHit(messageParts[2]);
+                    if (hit)
+                        return "HIT";
+                    else
+                        return "MISS";
+                }
+                else if(_state == ServerStateEnum.Player2Turn && messageParts[1] == "2")
+                {
+                    // Apply hit to board
+                    _lastPlay = messageParts[2];
+                    bool hit = _player1Board.ApplyHit(messageParts[2]);
+                    if (hit)
+                        return "HIT";
+                    else
+                        return "MISS";
+                }
+                else
+                {
+                    result = "Not Your Turn";
+                }
+            }
+            else if(messageParts[0] == "Turn" && _lastPlay != null)
+            {
+                result = "Turn Already Taken";
+            }
+            else if(messageParts[1] =="Recieve" && _lastPlay != null)
+            {
+                result = "OK|" + _lastPlay;
+                _lastPlay = null;
+
+                // This triggers the move to the next player
+                // ToDO: Check if the game is over maybe?
+                if (_state == ServerStateEnum.Player1Turn)
+                    _state = ServerStateEnum.Player2Turn;
+                else if (_state == ServerStateEnum.Player2Turn)
+                    _state = ServerStateEnum.Player1Turn;
+            }
+            else if(messageParts[1] == "Recieve" && _lastPlay == null)
+            {
+                result = "Pending";
             }
 
             return result;
