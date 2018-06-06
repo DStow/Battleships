@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using MonoGameUtilityLib;
+
 namespace BattleshipsGame
 {
     /// <summary>
@@ -9,8 +11,9 @@ namespace BattleshipsGame
     /// </summary>
     public class BattleshipsGame : Game
     {
-        GraphicsDeviceManager _graphics;
-        SpriteBatch _spriteBatch;
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        private Camera _camera;
 
         public BattleshipsGame()
         {
@@ -19,6 +22,8 @@ namespace BattleshipsGame
 
             _graphics.PreferredBackBufferWidth = 800;
             _graphics.PreferredBackBufferHeight = 640;
+
+            _camera = new Camera(800, 640, 800);
         }
 
         protected override void Initialize()
