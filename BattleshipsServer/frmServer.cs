@@ -108,7 +108,8 @@ namespace BattleshipsServer
 
         private void frmServer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _server.CloseServer();
+            if (_server != null)
+                _server.CloseServer();
         }
 
 
