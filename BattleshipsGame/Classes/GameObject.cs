@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+using MonoGameUtilityLib;
+
 namespace BattleshipsGame.Classes
 {
     public abstract class GameObject
@@ -32,7 +34,7 @@ namespace BattleshipsGame.Classes
 
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Camera camera)
         {
 
         }
