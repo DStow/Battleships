@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BattleshipsGame.Classes.Scenes
 {
-    public abstract class Scene
+    public abstract class Scene : GameObject
     {
+
     }
 }
