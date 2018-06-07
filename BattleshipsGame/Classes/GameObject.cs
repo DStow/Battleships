@@ -19,6 +19,11 @@ namespace BattleshipsGame.Classes
             }
         }
 
+        public virtual void Initialize()
+        {
+
+        }
+
         public virtual void LoadContent(ContentManager content)
         {
 

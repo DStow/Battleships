@@ -38,12 +38,20 @@ namespace BattleshipsGame.Classes.Scenes
             _currentScene = _connectionScene;
         }
 
+        public override void Initialize()
+        {
+            _connectionScene.Initialize();
+            _placementScene.Initialize();
+            _gameScene.Initialize();
+        }
+
         public override void LoadContent(ContentManager content)
         {
             _connectionScene.LoadContent(content);
             _placementScene.LoadContent(content);
             _gameScene.LoadContent(content);
         }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -72,6 +80,10 @@ namespace BattleshipsGame.Classes.Scenes
                     BattleshipsGame.ServerPort = scene.Port;
                     _currentSceneType = SceneEnum.Placement;
                 }
+            }
+            else if(_currentSceneType == SceneEnum.Placement)
+            {
+             
             }
         }
 

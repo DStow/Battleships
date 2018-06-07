@@ -37,6 +37,8 @@ namespace BattleshipsGame
             GameWindow = Window;
             GameWindow.TextInput += GameWindow_TextInput;
 
+            IsMouseVisible = true;
+
             // Uhhh some stupid singleton thing I picked up from a Unity tutorial... sorry
             new FontHandler();
 
@@ -50,6 +52,9 @@ namespace BattleshipsGame
 
         protected override void Initialize()
         {
+            _sceneManager.Initialize();
+
+            // Do this last
             base.Initialize();
         }
 
@@ -85,6 +90,6 @@ namespace BattleshipsGame
             base.Draw(gameTime);
         }
 
-     
+
     }
 }
