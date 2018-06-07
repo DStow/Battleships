@@ -17,9 +17,12 @@ namespace BattleshipsGame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Camera _camera;
-        public static GameWindow GameWindow;
 
-        private Scene _currentScene;
+        public static GameWindow GameWindow;
+        public static string ServerIP = "";
+        public static int ServerPort = 0;
+
+        private SceneManager _sceneManager;
 
         public BattleshipsGame()
         {
@@ -36,16 +39,17 @@ namespace BattleshipsGame
 
             // Uhhh some stupid singleton thing I picked up from a Unity tutorial... sorry
             new FontHandler();
+
+            _sceneManager = new SceneManager();
         }
 
         private void GameWindow_TextInput(object sender, TextInputEventArgs e)
         {
-            _currentScene.TextInputEvent(sender, e);
+            _sceneManager.TextInputEvent(sender, e);
         }
 
         protected override void Initialize()
         {
-            _currentScene = new ConnectionScene();
             base.Initialize();
         }
 
@@ -55,7 +59,7 @@ namespace BattleshipsGame
 
             FontHandler.Instance.LoadFonts(Content);
 
-            _currentScene.LoadContent(Content);
+            _sceneManager.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -63,7 +67,7 @@ namespace BattleshipsGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            _currentScene.Update(gameTime);
+            _sceneManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -74,7 +78,7 @@ namespace BattleshipsGame
 
             _spriteBatch.Begin();
 
-            _currentScene.Draw(_spriteBatch, _camera);
+            _sceneManager.Draw(_spriteBatch, _camera);
 
             _spriteBatch.End();
 

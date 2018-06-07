@@ -48,6 +48,7 @@
     <Compile Include="Classes\Scenes\GameScene.cs" />
     <Compile Include="Classes\Scenes\PlacementScene.cs" />
     <Compile Include="Classes\Scenes\Scene.cs" />
+    <Compile Include="Classes\Scenes\SceneManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
