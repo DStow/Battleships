@@ -19,6 +19,8 @@ namespace BattleshipsGame.Classes.GameBoard.BoardTiles
 
         private Vector2 _tileSize, _boardPos;
 
+        public bool Highlight { get; set; }
+
         public BoardTile(Vector2 tileIndex, Vector2 tileSize, Vector2 boardPos)
         {
             TileIndex = tileIndex;

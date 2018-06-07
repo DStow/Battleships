@@ -31,6 +31,11 @@ namespace BattleshipsGame.Classes.Scenes
             _board.LoadContent(content);
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            _board.Update(gameTime);
+        }
+
         public override void Draw(SpriteBatch spriteBatch, Camera camera)
         {
             base.Draw(spriteBatch, camera);

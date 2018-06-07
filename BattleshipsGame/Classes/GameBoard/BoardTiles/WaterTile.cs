@@ -33,7 +33,10 @@ namespace BattleshipsGame.Classes.GameBoard.BoardTiles
         {
             base.DrawTile(drawArea, spriteBatch);
 
-            spriteBatch.Draw(_waterTexture, drawArea, Color.White);
+            Color col = Color.White;
+            if (Highlight)
+                col = Color.IndianRed;
+            spriteBatch.Draw(_waterTexture, drawArea, col);
         }
     }
 }
