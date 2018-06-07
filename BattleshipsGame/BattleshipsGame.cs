@@ -17,6 +17,7 @@ namespace BattleshipsGame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Camera _camera;
+        public static GameWindow GameWindow;
 
         private Scene _currentScene;
 
@@ -30,8 +31,16 @@ namespace BattleshipsGame
 
             _camera = new Camera(800, 640, 800);
 
+            GameWindow = Window;
+            GameWindow.TextInput += GameWindow_TextInput;
+
             // Uhhh some stupid singleton thing I picked up from a Unity tutorial... sorry
             new FontHandler();
+        }
+
+        private void GameWindow_TextInput(object sender, TextInputEventArgs e)
+        {
+            _currentScene.TextInputEvent(sender, e);
         }
 
         protected override void Initialize()
@@ -54,7 +63,7 @@ namespace BattleshipsGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-    
+            _currentScene.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -71,5 +80,7 @@ namespace BattleshipsGame
 
             base.Draw(gameTime);
         }
+
+     
     }
 }
