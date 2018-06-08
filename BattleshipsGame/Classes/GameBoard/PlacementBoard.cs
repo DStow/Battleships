@@ -20,7 +20,7 @@ namespace BattleshipsGame.Classes.GameBoard
         public Ship PlacementShip;
 
         // List of the currently places ships
-        private List<Ship> _placedShips = new List<Ship>();
+        public List<Ship> PlacedShips = new List<Ship>();
 
         // Direction the current ship is being placed
         private PlacementDirectionEnum _currentDirection = PlacementDirectionEnum.Right;
@@ -88,7 +88,7 @@ namespace BattleshipsGame.Classes.GameBoard
             }
 
             // Check already placed ships
-            foreach (var ship in _placedShips)
+            foreach (var ship in PlacedShips)
             {
                 foreach (var tile in ship.ShipTiles)
                 {
@@ -148,7 +148,7 @@ namespace BattleshipsGame.Classes.GameBoard
             {
                 if (ms.LeftButton == ButtonState.Pressed && _previousMouseTile != null && _isLeftDown == false && CanPlacementShipBePlaced())
                 {
-                    _placedShips.Add(PlacementShip);
+                    PlacedShips.Add(PlacementShip);
                     _shipTypeIndex++;
                     _isLeftDown = true;
                 }
@@ -169,7 +169,7 @@ namespace BattleshipsGame.Classes.GameBoard
         {
             base.DrawTiles(spriteBatch, camera);
 
-            foreach (var ship in _placedShips)
+            foreach (var ship in PlacedShips)
             {
                 foreach (var tile in ship.ShipTiles)
                 {
@@ -211,7 +211,7 @@ namespace BattleshipsGame.Classes.GameBoard
 
         public void ResetBoard()
         {
-            _placedShips = new List<Ship>();
+            PlacedShips = new List<Ship>();
             _shipTypeIndex = 0;
         }
     }

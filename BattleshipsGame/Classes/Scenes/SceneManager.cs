@@ -83,7 +83,10 @@ namespace BattleshipsGame.Classes.Scenes
             }
             else if(_currentSceneType == SceneEnum.Placement)
             {
-             
+                if (_placementScene.PlacementDone)
+                {
+                    _currentSceneType = SceneEnum.Game;
+                }
             }
         }
 

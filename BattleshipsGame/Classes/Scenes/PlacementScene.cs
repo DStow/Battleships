@@ -55,7 +55,7 @@ namespace BattleshipsGame.Classes.Scenes
             _doneButton.Update(gameTime);
             _resetButton.Update(gameTime);
 
-            if(_board.PlacementShip != null)
+            if (_board.PlacementShip != null)
             {
                 _doneButton.Visible = false;
             }
@@ -81,6 +81,18 @@ namespace BattleshipsGame.Classes.Scenes
         private void DoneButton_Click(Button button)
         {
             PlacementDone = true;
+
+            // Send placement communcation
+            string placementData = "";
+            foreach (var ship in _board.PlacedShips)
+            {
+                foreach (var tile in ship.ShipTiles)
+                {
+                    placementData += Convert.ToInt32(tile.TileIndex.X) + "," + Convert.ToInt32(tile.TileIndex.Y) + ";";
+                }
+            }
+
+            ServerCommunications.SendPieces(placementData);
         }
 
         private void ResetButton_Click(Button button)

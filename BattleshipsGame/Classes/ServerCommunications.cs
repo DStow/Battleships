@@ -53,5 +53,26 @@ namespace BattleshipsGame.Classes
             }
         }
 
+        public static bool SendPieces(string placementData)
+        {
+            //if (Settings.DebugCommuncationsMode)
+            //{
+            //    BattleshipsGame.PlayerNumber = 1;
+            //    return true;
+            //}
+
+            Client c = new Client(BattleshipsGame.ServerIP, BattleshipsGame.ServerPort);
+            string result = "";
+            try
+            {
+                result = c.SendMessage("Pieces|"  +BattleshipsGame.PlayerNumber + "|" + placementData);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
