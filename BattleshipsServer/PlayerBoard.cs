@@ -17,7 +17,7 @@ namespace BattleshipsServer
         public PlayerBoard(string playerPieces)
         {
             // Parse the player pieces
-            string[] pieces = playerPieces.Split(';');
+            string[] pieces = playerPieces.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (pieces.Count() != 20)
             {
@@ -26,7 +26,7 @@ namespace BattleshipsServer
 
             List<BoardPiece> finalPieces = new List<BoardPiece>();
 
-            foreach(string piece in pieces)
+            foreach (string piece in pieces)
             {
                 // Split and assemble a board piece
                 string[] parts = piece.Split(',');
@@ -49,9 +49,9 @@ namespace BattleshipsServer
             int x = Convert.ToInt32(parts[0]);
             int y = Convert.ToInt32(parts[1]);
 
-            for(int i = 0; i < _pieces.Length; i++)
+            for (int i = 0; i < _pieces.Length; i++)
             {
-                if(_pieces[i].X == x && _pieces[i].Y == y)
+                if (_pieces[i].X == x && _pieces[i].Y == y)
                 {
                     _pieces[i].State = BoardPieceStateEnum.Hit;
                     return true;
