@@ -55,6 +55,37 @@ namespace BattleshipsGame.Classes.GameBoard
             HandlePlacement();
         }
 
+        private bool CanPlacementShipBePlaced()
+        {
+            bool result = true;
+            // Check bounds
+            foreach (var tile in _placementShip.ShipTiles)
+            {
+                if (tile.TileIndex.X < 0 || tile.TileIndex.X > 9 || tile.TileIndex.Y < 0 || tile.TileIndex.Y > 9)
+                {
+                    result = false;
+                    return result;
+                }
+            }
+
+            // Check already placed ships
+            foreach (var ship in _placedShips)
+            {
+                foreach (var tile in ship.ShipTiles)
+                {
+                    // Check if they are touching
+                    foreach (var shipTile in _placementShip.ShipTiles)
+                    {
+                        if (tile.TileIndex == shipTile.TileIndex)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
         private void GeneratePlacementShip()
         {
             if (_previousMouseTile != null)
@@ -94,7 +125,7 @@ namespace BattleshipsGame.Classes.GameBoard
         private void HandlePlacement()
         {
             MouseState ms = Mouse.GetState();
-            if (ms.LeftButton == ButtonState.Pressed && _previousMouseTile != null && _isLeftDown == false)
+            if (ms.LeftButton == ButtonState.Pressed && _previousMouseTile != null && _isLeftDown == false && CanPlacementShipBePlaced())
             {
                 _placedShips.Add(_placementShip);
                 _shipTypeIndex++;
@@ -126,12 +157,10 @@ namespace BattleshipsGame.Classes.GameBoard
                 Color tileOverlay = Color.White;
 
                 // Loop through tiles and see if all fo them are inside the board bounds
-                foreach (var tile in _placementShip.ShipTiles)
+                if (CanPlacementShipBePlaced() == false)
                 {
-                    if (tile.TileIndex.X < 0 || tile.TileIndex.X > 9 || tile.TileIndex.Y < 0 || tile.TileIndex.Y > 9)
-                    {
-                        tileOverlay = Color.Red;
-                    }
+                    tileOverlay = Color.Red;
+
                 }
 
                 foreach (var tile in _placementShip.ShipTiles)
