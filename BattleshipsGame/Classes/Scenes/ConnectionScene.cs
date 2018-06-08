@@ -78,7 +78,7 @@ namespace BattleshipsGame.Classes.Scenes
 
         }
 
-        private string _possibleInputs = "1234567890.";
+        private string _possibleInputs = "1234567890.LOCALHOST";
         public override void TextInputEvent(object sender, TextInputEventArgs e)
         {
             // Handle special keys first...
