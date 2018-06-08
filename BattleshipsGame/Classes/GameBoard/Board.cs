@@ -41,11 +41,11 @@ namespace BattleshipsGame.Classes.GameBoard
             }
         }
 
-        private BoardTiles.BoardTile _previousMouseTile;
+        protected BoardTiles.BoardTile _previousMouseTile;
         public override void Update(GameTime gameTime)
         {
             MouseState ms = Mouse.GetState();
-           // BattleshipsGame.GameWindow.Title = ms.Position.ToString();
+            // BattleshipsGame.GameWindow.Title = ms.Position.ToString();
 
             if (_previousMouseTile != null)
                 _previousMouseTile.Highlight = false;
@@ -63,7 +63,8 @@ namespace BattleshipsGame.Classes.GameBoard
 
                 int mouseTileIndex = xCount + yCount;
 
-                if (mouseTileIndex <= 10 * 10 - 1) { 
+                if (mouseTileIndex <= 10 * 10 - 1)
+                {
                     _previousMouseTile = Tiles[mouseTileIndex];
                     _previousMouseTile.Highlight = true;
                 }
@@ -84,11 +85,23 @@ namespace BattleshipsGame.Classes.GameBoard
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera)
         {
+
+            DrawTiles(spriteBatch, camera);
+
+            DrawGrid(spriteBatch, camera);
+
+        }
+
+        protected virtual void DrawTiles(SpriteBatch spriteBatch, Camera camera)
+        {
             foreach (var tile in Tiles)
             {
                 tile.Draw(spriteBatch, camera);
             }
+        }
 
+        protected virtual void DrawGrid(SpriteBatch spriteBatch, Camera camera)
+        {
             RectangleF drawArea = new RectangleF(Position.X, Position.Y, Size.X, Size.Y);
             spriteBatch.Draw(_gridOverlay, drawArea, Color.White);
         }

@@ -22,6 +22,12 @@ namespace BattleshipsGame.Classes.GameBoard.BoardTiles
 
         }
 
+        public WaterTile(Vector2 tileIndex)
+            : base(tileIndex)
+        {
+
+        }
+
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);

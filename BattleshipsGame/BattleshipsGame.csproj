@@ -42,17 +42,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BattleshipsGame.cs" />
+    <Compile Include="Classes\Enumeration.cs" />
     <Compile Include="Classes\FontHandler.cs" />
     <Compile Include="Classes\GameBoard\Board.cs" />
     <Compile Include="Classes\GameBoard\BoardTiles\BoardTile.cs" />
     <Compile Include="Classes\GameBoard\BoardTiles\ShipTile.cs" />
     <Compile Include="Classes\GameBoard\BoardTiles\WaterTile.cs" />
+    <Compile Include="Classes\GameBoard\PlacementBoard.cs" />
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\Scenes\ConnectionScene.cs" />
     <Compile Include="Classes\Scenes\GameScene.cs" />
     <Compile Include="Classes\Scenes\PlacementScene.cs" />
     <Compile Include="Classes\Scenes\Scene.cs" />
     <Compile Include="Classes\Scenes\SceneManager.cs" />
+    <Compile Include="Classes\Ships\Battleship.cs" />
+    <Compile Include="Classes\Ships\Cruiser.cs" />
+    <Compile Include="Classes\Ships\Destroyer.cs" />
+    <Compile Include="Classes\Ships\Ship.cs" />
+    <Compile Include="Classes\Ships\Submarine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

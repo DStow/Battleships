@@ -17,7 +17,7 @@ namespace BattleshipsGame.Classes.GameBoard.BoardTiles
 
         public bool Hit { get; set; }
 
-        private Vector2 _tileSize, _boardPos;
+        public Vector2 _tileSize, _boardPos;
 
         public bool Highlight { get; set; }
 
@@ -27,6 +27,13 @@ namespace BattleshipsGame.Classes.GameBoard.BoardTiles
             _tileSize = tileSize;
             _boardPos = boardPos;
         }
+
+        public BoardTile(Vector2 tileIndex)
+        {
+            TileIndex = tileIndex;
+        }
+
+        public Color OverlayColor { get; set; } = Color.White;
 
         public sealed override void Draw(SpriteBatch spriteBatch, Camera camera)
         {

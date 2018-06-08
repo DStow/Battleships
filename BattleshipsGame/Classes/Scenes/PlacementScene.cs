@@ -15,11 +15,13 @@ namespace BattleshipsGame.Classes.Scenes
     /// </summary>
     public class PlacementScene : Scene
     {
-        private GameBoard.Board _board;
+        private GameBoard.PlacementBoard _board;
+
+
 
         public override void Initialize()
         {
-            _board = new GameBoard.Board();
+            _board = new GameBoard.PlacementBoard();
             _board.Position = new Vector2(25, 60);
             _board.Size = new Vector2(520, 520);
             _board.Initialize();
