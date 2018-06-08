@@ -11,6 +11,6 @@ namespace BattleshipsGame
         /// <summary>
         /// Mock / skip the calls to the server
         /// </summary>
-        public const bool DebugCommuncationsMode = true;
+        public const bool DebugCommuncationsMode = false;
     }
 }
