@@ -32,9 +32,15 @@ namespace BattleshipsServer
                 Directory.CreateDirectory(_logDirectory);
             }
 
+            ResetGame();
+
+            this.Text = _game.GameState.ToString();
+        }
+
+        private void ResetGame()
+        {
             _game = new BattleshipsGame();
             _game.GameStateChanged += Server_GameStateChanged;
-            this.Text = _game.GameState.ToString();
         }
 
         private void Server_GameStateChanged(object sender, EventArgs e)
@@ -82,6 +88,8 @@ namespace BattleshipsServer
 
             btnStopServer.Enabled = false;
             btnStartServer.Enabled = true;
+
+            ResetGame();
         }
 
         private delegate void InvokeDelegate();
