@@ -6,6 +6,7 @@ using MonoGameUtilityLib;
 
 using BattleshipsGame.Classes;
 using BattleshipsGame.Classes.Scenes;
+using Microsoft.Xna.Framework.Content;
 
 namespace BattleshipsGame
 {
@@ -14,9 +15,12 @@ namespace BattleshipsGame
     /// </summary>
     public class BattleshipsGame : Game
     {
-        private GraphicsDeviceManager _graphics;
+        public static GraphicsDeviceManager Graphics;
+        public static ContentManager GameContent;
+
         private SpriteBatch _spriteBatch;
         private Camera _camera;
+
 
         public static GameWindow GameWindow;
         public static string ServerIP = "";
@@ -26,11 +30,11 @@ namespace BattleshipsGame
 
         public BattleshipsGame()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            _graphics.PreferredBackBufferWidth = 800;
-            _graphics.PreferredBackBufferHeight = 640;
+            Graphics.PreferredBackBufferWidth = 800;
+            Graphics.PreferredBackBufferHeight = 640;
 
             _camera = new Camera(800, 640, 800);
 
@@ -60,6 +64,8 @@ namespace BattleshipsGame
 
         protected override void LoadContent()
         {
+            GameContent = Content;
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             FontHandler.Instance.LoadFonts(Content);
