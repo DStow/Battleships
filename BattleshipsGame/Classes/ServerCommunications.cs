@@ -16,6 +16,12 @@ namespace BattleshipsGame.Classes
         // Connect and get back the player number
         public static bool Connect()
         {
+            if (Settings.DebugCommuncationsMode)
+            {
+                BattleshipsGame.PlayerNumber = 1;
+                return true;
+            }
+
             Client c = new Client(BattleshipsGame.ServerIP, BattleshipsGame.ServerPort);
             string result = "";
             try
