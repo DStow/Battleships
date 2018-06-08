@@ -89,13 +89,17 @@ namespace BattleshipsGame.Classes.Scenes
                 else
                     _portInput += e.Character.ToString();
             }
-            else if (e.Character.ToString() == "\b" && _ipInput.Length > 0)
+            else if (e.Character.ToString() == "\b" && _ipInput.Length > 0 && _selectedInput == InputControlEnum.IP)
             {
                 _ipInput = _ipInput.Substring(0, _ipInput.Length - 1);
             }
             else if (e.Character.ToString() == "\r" && _ipInput.Length > 0 && _selectedInput == InputControlEnum.IP)
             {
                 _selectedInput = InputControlEnum.Port;
+            }
+            else if (e.Character.ToString() == "\b" && _portInput.Length > 0 && _selectedInput == InputControlEnum.Port)
+            {
+                _portInput = _portInput.Substring(0, _portInput.Length - 1);
             }
             else if (e.Character.ToString() == "\r" && _portInput.Length > 0 && _selectedInput == InputControlEnum.Port)
             {
