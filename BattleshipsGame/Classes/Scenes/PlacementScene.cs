@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using MonoGameUtilityLib;
 using Microsoft.Xna.Framework.Content;
+using MonoGameUtilityLib.MenuSupport;
 
 namespace BattleshipsGame.Classes.Scenes
 {
@@ -15,8 +16,14 @@ namespace BattleshipsGame.Classes.Scenes
     /// </summary>
     public class PlacementScene : Scene
     {
+        // Has all of the ship placements been done?
+        public bool PlacementDone { get; set; }
+
         private GameBoard.PlacementBoard _board;
 
+        // Menu buttons
+        private Button _doneButton;
+        private Button _resetButton;
 
 
         public override void Initialize()
@@ -31,11 +38,31 @@ namespace BattleshipsGame.Classes.Scenes
         {
             base.LoadContent(content);
             _board.LoadContent(content);
+
+            // Setup the menu controls
+            _doneButton = new Button("Complete", new Vector2(611, 92), FontHandler.Instance.LargeFont, DoneButton_Click, BattleshipsGame.Graphics.GraphicsDevice);
+            _doneButton.BorderHighlightColour = Color.Red;
+            _doneButton.Visible = false;
+
+            _resetButton = new Button("Reset", new Vector2(611, 160), FontHandler.Instance.LargeFont, ResetButton_Click, BattleshipsGame.Graphics.GraphicsDevice);
+            _resetButton.BorderHighlightColour = Color.Red;
         }
 
         public override void Update(GameTime gameTime)
         {
             _board.Update(gameTime);
+
+            _doneButton.Update(gameTime);
+            _resetButton.Update(gameTime);
+
+            if(_board.PlacementShip != null)
+            {
+                _doneButton.Visible = false;
+            }
+            else
+            {
+                _doneButton.Visible = true;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera)
@@ -45,6 +72,21 @@ namespace BattleshipsGame.Classes.Scenes
             spriteBatch.DrawString(FontHandler.Instance.LargeFont, "Placement Scene", new Vector2(25, 25), Color.White);
 
             _board.Draw(spriteBatch, camera);
+
+            _doneButton.Draw(spriteBatch);
+            _resetButton.Draw(spriteBatch);
         }
+
+        #region Button Clicks
+        private void DoneButton_Click(Button button)
+        {
+            PlacementDone = true;
+        }
+
+        private void ResetButton_Click(Button button)
+        {
+            _board.ResetBoard();
+        }
+        #endregion
     }
 }

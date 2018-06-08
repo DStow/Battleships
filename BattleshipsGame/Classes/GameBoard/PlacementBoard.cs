@@ -16,11 +16,8 @@ namespace BattleshipsGame.Classes.GameBoard
 {
     public class PlacementBoard : Board
     {
-        // Has all of the ship placements been done?
-        public bool PlacementDone { get; set; }
-
         // Current ship that is being 'placed'
-        private Ship _placementShip;
+        public Ship PlacementShip;
 
         // List of the currently places ships
         private List<Ship> _placedShips = new List<Ship>();
@@ -33,10 +30,6 @@ namespace BattleshipsGame.Classes.GameBoard
 
         // Index of the ship type we are currently placing
         private int _shipTypeIndex;
-
-        // Menu buttons
-        private Button _doneButton;
-        private Button _resetButton;
 
         // Stop the space from being repeatedly fired
         private bool _isSpaceDown = false;
@@ -60,14 +53,6 @@ namespace BattleshipsGame.Classes.GameBoard
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
-
-            // Setup the menu controls
-            _doneButton = new Button("Complete", new Vector2(611, 92), FontHandler.Instance.LargeFont, DoneButton_Click, BattleshipsGame.Graphics.GraphicsDevice);
-            _doneButton.BorderHighlightColour = Color.Red;
-            _doneButton.Visible = false;
-
-            _resetButton = new Button("Reset", new Vector2(611, 160), FontHandler.Instance.LargeFont, ResetButton_Click, BattleshipsGame.Graphics.GraphicsDevice);
-            _resetButton.BorderHighlightColour = Color.Red;
         }
 
         #region Update
@@ -75,18 +60,12 @@ namespace BattleshipsGame.Classes.GameBoard
         {
             base.Update(gameTime);
 
-            _doneButton.Update(gameTime);
-            _resetButton.Update(gameTime);
-
             if (_shipTypeIndex >= _shipTypes.Count())
             {
-                _placementShip = null;
-                _doneButton.Visible = true;
+                PlacementShip = null;
             }
             else
             {
-                _doneButton.Visible = false;
-
                 GeneratePlacementShip();
 
                 HandleRotation();
@@ -99,7 +78,7 @@ namespace BattleshipsGame.Classes.GameBoard
         {
             bool result = true;
             // Check bounds
-            foreach (var tile in _placementShip.ShipTiles)
+            foreach (var tile in PlacementShip.ShipTiles)
             {
                 if (tile.TileIndex.X < 0 || tile.TileIndex.X > 9 || tile.TileIndex.Y < 0 || tile.TileIndex.Y > 9)
                 {
@@ -114,7 +93,7 @@ namespace BattleshipsGame.Classes.GameBoard
                 foreach (var tile in ship.ShipTiles)
                 {
                     // Check if they are touching
-                    foreach (var shipTile in _placementShip.ShipTiles)
+                    foreach (var shipTile in PlacementShip.ShipTiles)
                     {
                         if (tile.TileIndex == shipTile.TileIndex)
                         {
@@ -130,14 +109,14 @@ namespace BattleshipsGame.Classes.GameBoard
         {
             if (_previousMouseTile != null)
             {
-                _placementShip = (Ships.Ship)Activator.CreateInstance(_shipTypes[_shipTypeIndex]);
+                PlacementShip = (Ships.Ship)Activator.CreateInstance(_shipTypes[_shipTypeIndex]);
 
-                _placementShip.TileIndex = _previousMouseTile.TileIndex;
-                _placementShip.Direction = _currentDirection;
+                PlacementShip.TileIndex = _previousMouseTile.TileIndex;
+                PlacementShip.Direction = _currentDirection;
 
 
-                _placementShip.Initialize();
-                _placementShip.LoadContent(BattleshipsGame.GameContent);
+                PlacementShip.Initialize();
+                PlacementShip.LoadContent(BattleshipsGame.GameContent);
             }
         }
 
@@ -169,7 +148,7 @@ namespace BattleshipsGame.Classes.GameBoard
             {
                 if (ms.LeftButton == ButtonState.Pressed && _previousMouseTile != null && _isLeftDown == false && CanPlacementShipBePlaced())
                 {
-                    _placedShips.Add(_placementShip);
+                    _placedShips.Add(PlacementShip);
                     _shipTypeIndex++;
                     _isLeftDown = true;
                 }
@@ -184,9 +163,6 @@ namespace BattleshipsGame.Classes.GameBoard
         public override void Draw(SpriteBatch spriteBatch, Camera camera)
         {
             base.Draw(spriteBatch, camera);
-
-            _doneButton.Draw(spriteBatch);
-            _resetButton.Draw(spriteBatch);
         }
 
         protected override void DrawTiles(SpriteBatch spriteBatch, Camera camera)
@@ -204,7 +180,7 @@ namespace BattleshipsGame.Classes.GameBoard
                 }
             }
 
-            if (_placementShip != null)
+            if (PlacementShip != null)
             {
                 Color tileOverlay = Color.White;
 
@@ -215,7 +191,7 @@ namespace BattleshipsGame.Classes.GameBoard
 
                 }
 
-                foreach (var tile in _placementShip.ShipTiles)
+                foreach (var tile in PlacementShip.ShipTiles)
                 {
                     tile.OverlayColor = tileOverlay;
 
@@ -233,17 +209,10 @@ namespace BattleshipsGame.Classes.GameBoard
             }
         }
 
-        #region Button Clicks
-        private void DoneButton_Click(Button button)
-        {
-            PlacementDone = true;
-        }
-
-        private void ResetButton_Click(Button button)
+        public void ResetBoard()
         {
             _placedShips = new List<Ship>();
             _shipTypeIndex = 0;
         }
-        #endregion
     }
 }
