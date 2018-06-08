@@ -102,7 +102,18 @@ namespace BattleshipsGame.Classes.Scenes
                 // Todo: check values are valid...
                 IP = _ipInput;
                 Port = Convert.ToInt32(_portInput);
-                InputComplete = true;
+
+                BattleshipsGame.ServerIP = IP;
+                BattleshipsGame.ServerPort = Port;
+
+                if (ServerCommunications.Connect())
+                    InputComplete = true;
+                else
+                {
+                    _portInput = "";
+                    _ipInput = "";
+                }
+
             }
         }
     }

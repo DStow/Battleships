@@ -25,6 +25,7 @@ namespace BattleshipsGame
         public static GameWindow GameWindow;
         public static string ServerIP = "";
         public static int ServerPort = 0;
+        public static int PlayerNumber = 0;
 
         private SceneManager _sceneManager;
 

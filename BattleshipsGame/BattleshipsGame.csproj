@@ -55,6 +55,7 @@
     <Compile Include="Classes\Scenes\PlacementScene.cs" />
     <Compile Include="Classes\Scenes\Scene.cs" />
     <Compile Include="Classes\Scenes\SceneManager.cs" />
+    <Compile Include="Classes\ServerCommunications.cs" />
     <Compile Include="Classes\Ships\Battleship.cs" />
     <Compile Include="Classes\Ships\Cruiser.cs" />
     <Compile Include="Classes\Ships\Destroyer.cs" />
@@ -72,6 +73,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="TCPClientLibNetFramework">
+      <HintPath>dll\TCPClientLibNetFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
