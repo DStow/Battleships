@@ -106,7 +106,7 @@ namespace BattleshipsGame.Classes
             return recieveResult;
         }
 
-        public static bool CheckGameReader()
+        public static bool CheckGameReady()
         {
             if (Settings.DebugCommuncationsMode)
             {

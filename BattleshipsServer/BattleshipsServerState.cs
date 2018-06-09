@@ -42,15 +42,28 @@ namespace BattleshipsServer
         public string ProcessServerMessage(string message)
         {
             string result = "Error";
-
-            if(message == "Ping")
-            {
-                return "OK";
-            }
-
             // Split with |
             string[] messageParts = message.Split('|');
 
+            if (message == "Ping")
+            {
+                return "OK";
+            }
+            else if (messageParts[0] == "GameReady")
+            {
+                if (_player1Board != null && _player2Board != null)
+                {
+                    result = "Ready";
+                }
+                else
+                {
+                    result = "NR";
+                }
+
+                return result;
+            }
+
+    
             if (GameState == ServerStateEnum.Player1Connect || GameState == ServerStateEnum.Player2Connect || GameState == ServerStateEnum.PlayerPieces)
             {
                 if (messageParts[0] == "Connect")
@@ -228,17 +241,7 @@ namespace BattleshipsServer
                     result = "NR";
                 }
             }
-            else if(messageParts[0] == "GameReady")
-            {
-                if(_player1Board != null && _player2Board != null)
-                {
-                    result = "Ready";
-                }
-                else
-                {
-                    result = "NR";
-                }
-            }
+
 
             return result;
         }

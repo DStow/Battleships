@@ -19,8 +19,11 @@ namespace BattleshipsGame.Classes.Scenes
         public FixedTimer ConnectionTimer { get; set; }
 
         private bool _myTurn = false;
+        private bool _gameReady = false;
 
         private GameBoard.Board _gameBoard;
+
+        private string _statusText = "";
 
         public override void Initialize()
         {
@@ -52,8 +55,15 @@ namespace BattleshipsGame.Classes.Scenes
 
             ConnectionTimer.Update(gameTime);
 
-            if (ConnectionTimer.Tick && _myTurn == false)
+            if (_gameReady == false && ConnectionTimer.Tick)
             {
+                _statusText = "Waiting for the other player to connect and place their pieces";
+                // Check if both players have connected and placed their pieces before continuting
+                _gameReady = ServerCommunications.CheckGameReady();
+            }
+            else if (ConnectionTimer.Tick && _myTurn == false)
+            {
+                _statusText = "Not Your Turn";
                 // Send off the check request or something
                 RecieveTurnResult res = ServerCommunications.RecieveOpponentMove();
                 if (res.Pending == false && res.TileIndex != null)
@@ -64,6 +74,10 @@ namespace BattleshipsGame.Classes.Scenes
                     _myTurn = true;
                 }
             }
+            else if (_myTurn && _gameReady == true)
+            {
+                _statusText = "Your Turn!";
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera)
@@ -71,6 +85,8 @@ namespace BattleshipsGame.Classes.Scenes
             base.Draw(spriteBatch, camera);
 
             _gameBoard.Draw(spriteBatch, camera);
+
+            spriteBatch.DrawString(FontHandler.Instance.LargeFont, _statusText, new Vector2(25, 25), Color.White);
         }
     }
 }
