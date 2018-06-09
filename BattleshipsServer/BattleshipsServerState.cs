@@ -9,7 +9,7 @@ using BattleshipsServer.Enumeration;
 
 namespace BattleshipsServer
 {
-    public class BattleshipsGame
+    public class BattleshipsServerState
     {
 
         private ServerStateEnum _state = ServerStateEnum.Unknown;
@@ -34,7 +34,7 @@ namespace BattleshipsServer
         private PlayerBoard _player1Board, _player2Board;
 
 
-        public BattleshipsGame()
+        public BattleshipsServerState()
         {
             GameState = ServerStateEnum.Player1Connect;
         }
@@ -42,6 +42,11 @@ namespace BattleshipsServer
         public string ProcessServerMessage(string message)
         {
             string result = "Error";
+
+            if(message == "Ping")
+            {
+                return "OK";
+            }
 
             // Split with |
             string[] messageParts = message.Split('|');
