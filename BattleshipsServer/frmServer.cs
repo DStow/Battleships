@@ -130,6 +130,8 @@ namespace BattleshipsServer
             if (result.Trim() == "")
                 result = "Error";
 
+            WriteToLog("Returned: " + result);
+
             return result;
         }
     }
