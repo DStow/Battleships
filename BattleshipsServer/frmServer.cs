@@ -15,7 +15,7 @@ namespace BattleshipsServer
     {
         private TCPServerLib.Server _server;
         private string _logDirectory = "";
-        private BattleshipsGame _game;
+        private BattleshipsServerState _game;
 
         public frmServer()
         {
@@ -39,7 +39,7 @@ namespace BattleshipsServer
 
         private void ResetGame()
         {
-            _game = new BattleshipsGame();
+            _game = new BattleshipsServerState();
             _game.GameStateChanged += Server_GameStateChanged;
         }
 
