@@ -228,6 +228,17 @@ namespace BattleshipsServer
                     result = "NR";
                 }
             }
+            else if(messageParts[0] == "GameReady")
+            {
+                if(_player1Board != null && _player2Board != null)
+                {
+                    result = "Ready";
+                }
+                else
+                {
+                    result = "NR";
+                }
+            }
 
             return result;
         }
