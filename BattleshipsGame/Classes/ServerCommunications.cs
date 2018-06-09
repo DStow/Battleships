@@ -123,6 +123,28 @@ namespace BattleshipsGame.Classes
             else
                 return false;
         }
+
+        public static bool? SendTurn(Vector2 tileIndex)
+        {
+            if (Settings.DebugCommuncationsMode)
+            {
+                return true;
+            }
+            Client c = new Client(BattleshipsGame.ServerIP, BattleshipsGame.ServerPort);
+
+            string result = "";
+            result = c.SendMessage("Turn|" + BattleshipsGame.PlayerNumber + "|" + Convert.ToInt32(tileIndex.X) + "," + Convert.ToInt32(tileIndex.Y));
+
+            if (result == "HIT")
+                return true;
+            else if (result == "MISS")
+                return false;
+            else
+            {
+                return null;
+            }
+
+        }
     }
 
     public class RecieveTurnResult

@@ -42,6 +42,10 @@ namespace BattleshipsGame.Classes.GameBoard.BoardTiles
             Color col = Color.White;
             if (Highlight)
                 col = Color.IndianRed;
+
+            if (Hit)
+                col = Color.Orange;
+
             spriteBatch.Draw(_waterTexture, drawArea, col);
         }
     }

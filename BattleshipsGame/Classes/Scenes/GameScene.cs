@@ -99,13 +99,39 @@ namespace BattleshipsGame.Classes.Scenes
                 if (res.Pending == false && res.TileIndex != null)
                 {
                     // Apply the players turn
+                    bool hitLocal = _playerBoard.ApplyHit(res.TileIndex.Value);
 
 
-                    _myTurn = true;
+                    if (!hitLocal)
+                        _myTurn = true;
+                    else
+                        _myTurn = false;
                 }
             }
             else if (_myTurn && _gameReady == true)
             {
+                if (_opponentBoard.SelectedTileIndex != null)
+                {
+                    bool? sendTurnResult = ServerCommunications.SendTurn(_opponentBoard.SelectedTileIndex.Value);
+                    // send your turn
+                    if (sendTurnResult.HasValue == false)
+                    {
+                        // They clicked too early
+                    }
+                    else if(sendTurnResult.Value)
+                    {
+                        // Hit enemy so stay on
+                        _opponentBoard.ApplyHit(_opponentBoard.SelectedTileIndex.Value, true);
+                        _opponentBoard.SelectedTileIndex = null;
+                        _myTurn = true;
+                    }
+                    else
+                    {
+                        _opponentBoard.ApplyHit(_opponentBoard.SelectedTileIndex.Value);
+                        _opponentBoard.SelectedTileIndex = null;
+                        _myTurn = false;
+                    }
+                }
                 _statusText = "Your Turn!";
             }
             else if (!_myTurn && _gameReady == true)

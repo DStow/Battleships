@@ -39,6 +39,10 @@ namespace BattleshipsGame.Classes.GameBoard.BoardTiles
         public override void DrawTile(RectangleF drawArea, SpriteBatch spriteBatch)
         {
             base.DrawTile(drawArea, spriteBatch);
+
+            if (Hit)
+                OverlayColor = Color.OrangeRed;
+
             spriteBatch.Draw(_shipTexture, drawArea, OverlayColor);
         }
     }
