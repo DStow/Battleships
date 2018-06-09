@@ -33,7 +33,7 @@ namespace BattleshipsGame.Classes.Scenes
             _gameBoard.Initialize();
 
             // 20 times a second
-            ConnectionTimer = new FixedTimer(1000 / 20);
+            ConnectionTimer = new FixedTimer(1000);
 
             if (BattleshipsGame.PlayerNumber == 1)
                 _myTurn = true;
