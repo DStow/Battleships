@@ -27,6 +27,11 @@ namespace BattleshipsGame.Classes.Scenes
 
         public Ships.Ship[] PlayerShips { get; set; }
 
+        public bool GameOver { get; set; }
+
+        public int _successfulHits = 0;
+        public int _successfulEnemyHits = 0;
+
         public override void Initialize()
         {
             base.Initialize();
@@ -62,6 +67,12 @@ namespace BattleshipsGame.Classes.Scenes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if(_successfulEnemyHits==20 || _successfulHits == 20)
+            {
+                GameOver = true;
+                return;
+            }
 
             ConnectionTimer.Update(gameTime);
 
@@ -105,7 +116,10 @@ namespace BattleshipsGame.Classes.Scenes
                     if (!hitLocal)
                         _myTurn = true;
                     else
+                    {
                         _myTurn = false;
+                        _successfulEnemyHits++;
+                    }
                 }
             }
             else if (_myTurn && _gameReady == true)
@@ -124,6 +138,7 @@ namespace BattleshipsGame.Classes.Scenes
                         _opponentBoard.ApplyHit(_opponentBoard.SelectedTileIndex.Value, true);
                         _opponentBoard.SelectedTileIndex = null;
                         _myTurn = true;
+                        _successfulHits++;
                     }
                     else
                     {

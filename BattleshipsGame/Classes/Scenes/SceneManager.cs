@@ -20,12 +20,14 @@ namespace BattleshipsGame.Classes.Scenes
         private ConnectionScene _connectionScene;
         private PlacementScene _placementScene;
         private GameScene _gameScene;
+        private GameOverScene _gameOverScene;
 
         private enum SceneEnum
         {
             Connection,
             Placement,
-            Game
+            Game,
+            GameOver
         }
         private SceneEnum _currentSceneType = SceneEnum.Connection;
 
@@ -34,6 +36,7 @@ namespace BattleshipsGame.Classes.Scenes
             _connectionScene = new ConnectionScene();
             _placementScene = new PlacementScene();
             _gameScene = new GameScene();
+            _gameOverScene = new GameOverScene();
 
             _currentScene = _connectionScene;
         }
@@ -43,6 +46,7 @@ namespace BattleshipsGame.Classes.Scenes
             _connectionScene.Initialize();
             _placementScene.Initialize();
             _gameScene.Initialize();
+            _gameOverScene.Initialize();
         }
 
         public override void LoadContent(ContentManager content)
@@ -50,6 +54,7 @@ namespace BattleshipsGame.Classes.Scenes
             _connectionScene.LoadContent(content);
             _placementScene.LoadContent(content);
             _gameScene.LoadContent(content);
+            _gameOverScene.LoadContent(content);
         }
 
 
@@ -66,6 +71,9 @@ namespace BattleshipsGame.Classes.Scenes
                     break;
                 case SceneEnum.Game:
                     _currentScene = _gameScene;
+                    break;
+                case SceneEnum.GameOver:
+                    _currentScene = _gameOverScene;
                     break;
             }
 
@@ -91,6 +99,17 @@ namespace BattleshipsGame.Classes.Scenes
                     _gameScene.PlayerShips = _placementScene.PlacedShips;
                     _gameScene.Initialize();
                     _gameScene.LoadContent(BattleshipsGame.GameContent);
+                }
+            }
+            else if(_currentSceneType == SceneEnum.Game)
+            {
+                if (_gameScene.GameOver)
+                {
+                    _currentSceneType = SceneEnum.GameOver;
+                    if (_gameScene._successfulEnemyHits == 20)
+                        _gameOverScene.PlayerWon = false;
+                    else
+                        _gameOverScene.PlayerWon = true;
                 }
             }
         }
