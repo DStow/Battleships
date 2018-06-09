@@ -51,13 +51,16 @@ namespace BattleshipsServer
             // Split with |
             string[] messageParts = message.Split('|');
 
-            if (GameState == ServerStateEnum.Player1Connect || GameState == ServerStateEnum.Player2Connect)
+            if (GameState == ServerStateEnum.Player1Connect || GameState == ServerStateEnum.Player2Connect || GameState == ServerStateEnum.PlayerPieces)
             {
-                result = HandlePlayerConnects(messageParts);
-            }
-            else if (GameState == ServerStateEnum.PlayerPieces)
-            {
-                result = HandlePlayerPieces(messageParts);
+                if (messageParts[0] == "Connect")
+                {
+                    result = HandlePlayerConnects(messageParts);
+                }
+                else if(messageParts[0] == "Pieces")
+                {
+                    result = HandlePlayerPieces(messageParts);
+                }
             }
             else if (GameState == ServerStateEnum.Player1Turn || GameState == ServerStateEnum.Player2Turn)
             {
