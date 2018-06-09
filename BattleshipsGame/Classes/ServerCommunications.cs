@@ -105,6 +105,24 @@ namespace BattleshipsGame.Classes
 
             return recieveResult;
         }
+
+        public static bool CheckGameReader()
+        {
+            if (Settings.DebugCommuncationsMode)
+            {
+                return true;
+            }
+
+            Client c = new Client(BattleshipsGame.ServerIP, BattleshipsGame.ServerPort);
+
+            string result = "";
+            result = c.SendMessage("GameReady");
+
+            if (result == "Ready")
+                return true;
+            else
+                return false;
+        }
     }
 
     public class RecieveTurnResult
