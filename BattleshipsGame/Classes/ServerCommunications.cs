@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,6 +54,7 @@ namespace BattleshipsGame.Classes
             }
         }
 
+        // Send the players ship pieces off to the server
         public static bool SendPieces(string placementData)
         {
             if (Settings.DebugCommuncationsMode)
@@ -65,7 +67,7 @@ namespace BattleshipsGame.Classes
             string result = "";
             try
             {
-                result = c.SendMessage("Pieces|"  +BattleshipsGame.PlayerNumber + "|" + placementData);
+                result = c.SendMessage("Pieces|" + BattleshipsGame.PlayerNumber + "|" + placementData);
             }
             catch
             {
@@ -74,5 +76,41 @@ namespace BattleshipsGame.Classes
 
             return true;
         }
+
+        public static RecieveTurnResult RecieveOpponentMove()
+        {
+            if (Settings.DebugCommuncationsMode)
+            {
+                BattleshipsGame.PlayerNumber = 1;
+                return new RecieveTurnResult() { Pending = true };
+            }
+
+            Client c = new Client(BattleshipsGame.ServerIP, BattleshipsGame.ServerPort);
+
+            string result = "";
+            result = c.SendMessage("Recieve|" + BattleshipsGame.PlayerNumber);
+
+            RecieveTurnResult recieveResult = new RecieveTurnResult();
+            string[] parts = result.Split('|');
+            if (result == "Pending")
+            {
+                recieveResult.Pending = true;
+            }
+            else if (parts[0] == "OK")
+            {
+                recieveResult.Pending = false;
+                string[] indexParts = parts[1].Split(',');
+                recieveResult.TileIndex = new Vector2(Convert.ToInt32(indexParts[0]), Convert.ToInt32(indexParts[1]));
+            }
+
+            return recieveResult;
+        }
+    }
+
+    public class RecieveTurnResult
+    {
+        public bool Pending { get; set; }
+        public Vector2? TileIndex { get; set; }
+
     }
 }
