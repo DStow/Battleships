@@ -21,19 +21,28 @@ namespace BattleshipsGame.Classes.Scenes
         private bool _myTurn = false;
         private bool _gameReady = false;
 
-        private GameBoard.Board _gameBoard;
+        private GameBoard.GameBoard _playerBoard, _opponentBoard;
 
         private string _statusText = "";
+
+        public Ships.Ship[] PlayerShips { get; set; }
 
         public override void Initialize()
         {
             base.Initialize();
 
             // Setup the game board
-            _gameBoard = new GameBoard.Board();
-            _gameBoard.Position = new Vector2(25, 60);
-            _gameBoard.Size = new Vector2(520, 520);
-            _gameBoard.Initialize();
+            _playerBoard = new GameBoard.GameBoard();
+            _playerBoard.Position = new Vector2(15, 120);
+            _playerBoard.Size = new Vector2(380, 380);
+            _playerBoard.Ships = this.PlayerShips;
+            _playerBoard.Initialize();
+
+            _opponentBoard = new GameBoard.GameBoard();
+            _opponentBoard.Position = new Vector2(30 + 380, 120);
+            _opponentBoard.Size = new Vector2(380, 380);
+            _opponentBoard.Initialize();
+            _opponentBoard.MouseHoverEnabled = false;
 
             // 20 times a second
             ConnectionTimer = new FixedTimer(1000);
@@ -46,7 +55,8 @@ namespace BattleshipsGame.Classes.Scenes
         {
             base.LoadContent(content);
 
-            _gameBoard.LoadContent(content);
+            _playerBoard.LoadContent(content);
+            _opponentBoard.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)
@@ -61,13 +71,16 @@ namespace BattleshipsGame.Classes.Scenes
             {
                 if (_myTurn)
                 {
-                    _gameBoard.MouseHoverEnabled = true;
+                    _playerBoard.MouseHoverEnabled = true;
                 }
                 else
                 {
-                    _gameBoard.MouseHoverEnabled = false;
+                    _playerBoard.MouseHoverEnabled = false;
                 }
             }
+
+            _playerBoard.Update(gameTime);
+            _opponentBoard.Update(gameTime);
 
         }
 
@@ -110,9 +123,14 @@ namespace BattleshipsGame.Classes.Scenes
         {
             base.Draw(spriteBatch, camera);
 
-            _gameBoard.Draw(spriteBatch, camera);
+            _playerBoard.Draw(spriteBatch, camera);
+            _opponentBoard.Draw(spriteBatch, camera);
+
+            spriteBatch.DrawString(FontHandler.Instance.MediumFont, "Your Board:", new Vector2(18, 91), Color.White);
+            spriteBatch.DrawString(FontHandler.Instance.MediumFont, "Opponents Board:", new Vector2(413, 91), Color.White);
 
             spriteBatch.DrawString(FontHandler.Instance.LargeFont, _statusText, new Vector2(25, 25), Color.White);
+
         }
     }
 }

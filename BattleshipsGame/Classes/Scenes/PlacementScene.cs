@@ -21,6 +21,14 @@ namespace BattleshipsGame.Classes.Scenes
 
         private GameBoard.PlacementBoard _board;
 
+        public Ships.Ship[] PlacedShips
+        {
+            get
+            {
+                return _board.PlacedShips.ToArray();
+            }
+        }
+
         // Menu buttons
         private Button _doneButton;
         private Button _resetButton;

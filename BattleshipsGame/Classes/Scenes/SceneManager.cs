@@ -88,6 +88,7 @@ namespace BattleshipsGame.Classes.Scenes
                     _currentSceneType = SceneEnum.Game;
                     // Reinit this scene as a load of information about hte current player would of been updated since
                     // it was first loaded
+                    _gameScene.PlayerShips = _placementScene.PlacedShips;
                     _gameScene.Initialize();
                     _gameScene.LoadContent(BattleshipsGame.GameContent);
                 }

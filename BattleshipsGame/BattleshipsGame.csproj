@@ -48,6 +48,7 @@
     <Compile Include="Classes\GameBoard\BoardTiles\BoardTile.cs" />
     <Compile Include="Classes\GameBoard\BoardTiles\ShipTile.cs" />
     <Compile Include="Classes\GameBoard\BoardTiles\WaterTile.cs" />
+    <Compile Include="Classes\GameBoard\GameBoard.cs" />
     <Compile Include="Classes\GameBoard\PlacementBoard.cs" />
     <Compile Include="Classes\GameObject.cs" />
     <Compile Include="Classes\Scenes\ConnectionScene.cs" />
