@@ -101,6 +101,10 @@ namespace BattleshipsGame.Classes.Scenes
             {
                 _portInput = _portInput.Substring(0, _portInput.Length - 1);
             }
+            else if(e.Character.ToString() == "\b" && _portInput.Length == 0 && _selectedInput == InputControlEnum.Port)
+            {
+                _selectedInput = InputControlEnum.IP;
+            }
             else if (e.Character.ToString() == "\r" && _portInput.Length > 0 && _selectedInput == InputControlEnum.Port)
             {
                 // Todo: check values are valid...
