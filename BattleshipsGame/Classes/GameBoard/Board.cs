@@ -17,8 +17,10 @@ namespace BattleshipsGame.Classes.GameBoard
         public BoardTiles.BoardTile[] Tiles { get; set; }
 
         public bool MouseHoverEnabled { get; set; }
+        public bool DisabledOverlay { get; set; }
 
         private Texture2D _gridOverlay;
+        private Texture2D _disabledOverlay;
 
         public Board()
         {
@@ -83,6 +85,7 @@ namespace BattleshipsGame.Classes.GameBoard
             }
 
             _gridOverlay = content.Load<Texture2D>("board_grid");
+            _disabledOverlay = MonoGameUtilityLib.GraphicsSupport.TextureSupport.CreateSinglePixelTexture(BattleshipsGame.Graphics.GraphicsDevice, new Color(Color.Black, 128));
         }
 
         public override void Draw(SpriteBatch spriteBatch, Camera camera)
@@ -92,6 +95,8 @@ namespace BattleshipsGame.Classes.GameBoard
 
             DrawGrid(spriteBatch, camera);
 
+            if (DisabledOverlay)
+                DrawDisabledOverlay(spriteBatch, camera);
         }
 
         protected virtual void DrawTiles(SpriteBatch spriteBatch, Camera camera)
@@ -106,6 +111,12 @@ namespace BattleshipsGame.Classes.GameBoard
         {
             RectangleF drawArea = new RectangleF(Position.X, Position.Y, Size.X, Size.Y);
             spriteBatch.Draw(_gridOverlay, drawArea, Color.White);
+        }
+
+        protected virtual void DrawDisabledOverlay(SpriteBatch spriteBatch, Camera camera)
+        {
+            RectangleF drawArea = new RectangleF(Position.X, Position.Y, Size.X, Size.Y);
+            spriteBatch.Draw(_disabledOverlay, drawArea, Color.White);
         }
     }
 }

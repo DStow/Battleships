@@ -84,10 +84,14 @@ namespace BattleshipsGame.Classes.Scenes
                 if (_myTurn)
                 {
                     _opponentBoard.MouseHoverEnabled = true;
+                    _opponentBoard.DisabledOverlay = false;
+                    _playerBoard.DisabledOverlay = true;
                 }
                 else
                 {
                     _opponentBoard.MouseHoverEnabled = false;
+                    _playerBoard.DisabledOverlay = false;
+                    _opponentBoard.DisabledOverlay = true;
                 }
             }
 
