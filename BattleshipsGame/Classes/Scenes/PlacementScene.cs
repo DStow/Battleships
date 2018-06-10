@@ -63,7 +63,7 @@ namespace BattleshipsGame.Classes.Scenes
             _doneButton.Update(gameTime);
             _resetButton.Update(gameTime);
 
-            if (_board.PlacementShip != null)
+            if (_board.PlacementShip != null || _board.PlacedShips.Count < 10)
             {
                 _doneButton.Visible = false;
             }
