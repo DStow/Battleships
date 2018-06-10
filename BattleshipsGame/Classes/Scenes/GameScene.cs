@@ -41,6 +41,7 @@ namespace BattleshipsGame.Classes.Scenes
             _playerBoard.Position = new Vector2(15, 120);
             _playerBoard.Size = new Vector2(380, 380);
             _playerBoard.Ships = this.PlayerShips;
+            _playerBoard.MouseHoverEnabled = false;
             _playerBoard.Initialize();
 
             _opponentBoard = new GameBoard.GameBoard();
@@ -82,11 +83,11 @@ namespace BattleshipsGame.Classes.Scenes
             {
                 if (_myTurn)
                 {
-                    _playerBoard.MouseHoverEnabled = true;
+                    _opponentBoard.MouseHoverEnabled = true;
                 }
                 else
                 {
-                    _playerBoard.MouseHoverEnabled = false;
+                    _opponentBoard.MouseHoverEnabled = false;
                 }
             }
 
