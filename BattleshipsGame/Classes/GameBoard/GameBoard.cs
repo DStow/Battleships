@@ -30,7 +30,11 @@ namespace BattleshipsGame.Classes.GameBoard
                 if (ms.LeftButton == ButtonState.Pressed && _previousMouseTile != null && _isLeftDown == false)
                 {
                     // Check if it's a valid spot
-                    SelectedTileIndex = _previousMouseTile.TileIndex;
+                    if (_previousMouseTile.Hit == false)
+                    {
+                        SelectedTileIndex = _previousMouseTile.TileIndex;
+                    }
+
                     _isLeftDown = true;
                 }
                 else if (ms.LeftButton == ButtonState.Released)

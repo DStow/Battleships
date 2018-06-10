@@ -17,6 +17,7 @@ namespace BattleshipsGame.Classes.Scenes
     public class GameScene : Scene
     {
         public FixedTimer ConnectionTimer { get; set; }
+        public Ships.Ship[] PlayerShips { get; set; }
 
         private bool _myTurn = false;
         private bool _gameReady = false;
@@ -25,7 +26,7 @@ namespace BattleshipsGame.Classes.Scenes
 
         private string _statusText = "";
 
-        public Ships.Ship[] PlayerShips { get; set; }
+   
 
         public bool GameOver { get; set; }
 
@@ -50,7 +51,6 @@ namespace BattleshipsGame.Classes.Scenes
             _opponentBoard.Initialize();
             _opponentBoard.MouseHoverEnabled = false;
 
-            // 20 times a second
             ConnectionTimer = new FixedTimer(1000);
 
             if (BattleshipsGame.PlayerNumber == 1)

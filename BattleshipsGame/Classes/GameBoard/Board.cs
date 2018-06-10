@@ -44,33 +44,35 @@ namespace BattleshipsGame.Classes.GameBoard
         protected BoardTiles.BoardTile _previousMouseTile;
         public override void Update(GameTime gameTime)
         {
-            MouseState ms = Mouse.GetState();
-            // BattleshipsGame.GameWindow.Title = ms.Position.ToString();
-
-            if (_previousMouseTile != null)
-                _previousMouseTile.Highlight = false;
-
-            // Tile index 
-            if (AreaF.Contains(new Vector2(ms.X, ms.Y)))
+            if (MouseHoverEnabled)
             {
-                Vector2 relativePos = new Vector2(ms.X - AreaF.X, ms.Y - AreaF.Y);
+                MouseState ms = Mouse.GetState();
+                // BattleshipsGame.GameWindow.Title = ms.Position.ToString();
 
-                Vector2 tileSize = new Vector2(Size.X / 10, Size.Y / 10);
-                int yCount = Convert.ToInt32(relativePos.Y) / Convert.ToInt32(tileSize.Y);
-                yCount = yCount * 10;
+                if (_previousMouseTile != null)
+                    _previousMouseTile.Highlight = false;
 
-                int xCount = Convert.ToInt32(relativePos.X) / Convert.ToInt32(tileSize.X);
-
-                int mouseTileIndex = xCount + yCount;
-
-                if (mouseTileIndex <= 10 * 10 - 1)
+                // Tile index 
+                if (AreaF.Contains(new Vector2(ms.X, ms.Y)))
                 {
-                    _previousMouseTile = Tiles[mouseTileIndex];
-                    _previousMouseTile.Highlight = true;
-                }
+                    Vector2 relativePos = new Vector2(ms.X - AreaF.X, ms.Y - AreaF.Y);
 
+                    Vector2 tileSize = new Vector2(Size.X / 10, Size.Y / 10);
+                    int yCount = Convert.ToInt32(relativePos.Y) / Convert.ToInt32(tileSize.Y);
+                    yCount = yCount * 10;
+
+                    int xCount = Convert.ToInt32(relativePos.X) / Convert.ToInt32(tileSize.X);
+
+                    int mouseTileIndex = xCount + yCount;
+
+                    if (mouseTileIndex <= 10 * 10 - 1)
+                    {
+                        _previousMouseTile = Tiles[mouseTileIndex];
+                        _previousMouseTile.Highlight = true;
+                    }
+
+                }
             }
-            //int mouseTileIndex = 
         }
 
         public override void LoadContent(ContentManager content)
